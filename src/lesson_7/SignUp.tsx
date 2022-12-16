@@ -16,7 +16,7 @@ function SignUp() {
 
 	function handleSignUp(e) {
 		e.preventDefault()
-		if (password !== confirmPassword) {
+		if (password.current !== confirmPassword.current) {
 			return setFailure(Failure.PasswordMismatch)
 		}
 		if (accountDB.signUp(email.current, password.current)) {
@@ -77,7 +77,7 @@ function SignUp() {
 					Confirm Password
 				</label>
 				<input
-					id="password"
+					id="confirmPassword"
 					type="password"
 					className="w-full rounded-lg border border-gray-200 bg-transparent p-4 outline-none"
 					placeholder="Re-enter your password"
