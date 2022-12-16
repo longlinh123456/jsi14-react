@@ -1,14 +1,14 @@
 import {Link, useNavigate} from "react-router-dom"
 import accountDB from "./accountDB"
-import {useEffect, useState} from "react"
+import {useEffect, useRef, useState} from "react"
 function SignIn() {
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
+	const email = useRef("")
+	const password = useRef("")
 	const [failure, setFailure] = useState(false)
 	const navigate = useNavigate()
-	function handleSignIn(e, email, password) {
+	function handleSignIn(e) {
 		e.preventDefault()
-		if (accountDB.logIn(email, password)) {
+		if (accountDB.logIn(email.current, password.current)) {
 			navigate("/")
 		} else {
 			setFailure(true)
@@ -41,7 +41,7 @@ function SignIn() {
 					type="email"
 					className="w-full rounded-lg border border-gray-200 bg-transparent p-4 outline-none"
 					placeholder="Enter your email address"
-					onInput={(e) => setEmail((e.target as HTMLInputElement).value)}
+					onInput={(e) => email.current = (e.target as HTMLInputElement).value}
 				/>
 			</div>
 			<div className="mb-5 flex flex-col items-start gap-y-3">
@@ -56,7 +56,7 @@ function SignIn() {
 					type="password"
 					className="w-full rounded-lg border border-gray-200 bg-transparent p-4 outline-none"
 					placeholder="Enter your password"
-					onInput={(e) => setPassword((e.target as HTMLInputElement).value)}
+					onInput={(e) => password.current = (e.target as HTMLInputElement).value}
 				/>
 			</div>
 			{
@@ -83,7 +83,7 @@ function SignIn() {
 				</Link>
 			</div>
 			<button
-				onClick={(e) => handleSignIn(e, email, password)}
+				onClick={(e) => handleSignIn(e)}
 				type="submit"
 				className="inline-flex h-[60px] w-full items-center justify-center rounded-lg bg-blue-500 px-8 py-4 font-sans font-semibold tracking-wide text-white"
 			>

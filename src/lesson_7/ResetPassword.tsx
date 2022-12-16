@@ -1,16 +1,16 @@
-import {useEffect, useState} from "react"
+import {useEffect, useRef, useState} from "react"
 import {Link, useNavigate} from "react-router-dom"
 import accountDB from "./accountDB"
 
 function ResetPassword() {
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
+	const email = useRef("")
+	const password = useRef("")
 	const [failure, setFailure] = useState(false)
 	const [success, setSuccess] = useState(false)
 	const navigate = useNavigate()
 	function handleReset(e) {
 		e.preventDefault()
-		if (accountDB.resetPassword(email, password)) {
+		if (accountDB.resetPassword(email.current, password.current)) {
 			setFailure(false)
 			setSuccess(true)
 		} else {
@@ -43,7 +43,7 @@ function ResetPassword() {
 					type="email"
 					className="w-full rounded-lg border border-gray-200 bg-transparent p-4 outline-none"
 					placeholder="Enter registered email address"
-					onInput={(e) => setEmail((e.target as HTMLInputElement).value)}
+					onInput={(e) => email.current = (e.target as HTMLInputElement).value}
 				/>
 			</div>
 			<div className="mb-5 flex flex-col items-start gap-y-3">
@@ -58,7 +58,7 @@ function ResetPassword() {
 					type="password"
 					className="w-full rounded-lg border border-gray-200 bg-transparent p-4 outline-none"
 					placeholder="Enter new password"
-					onInput={(e) => setPassword((e.target as HTMLInputElement).value)}
+					onInput={(e) => password.current = (e.target as HTMLInputElement).value}
 				/>
 			</div>
 			{

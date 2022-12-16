@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react"
+import {useEffect, useState, useRef} from "react"
 import {Link, useNavigate} from "react-router-dom"
 import accountDB from "./accountDB"
 
@@ -8,9 +8,9 @@ enum Failure {
 	AlreadyExistingAccount
 }
 function SignUp() {
-	const [email, setEmail] = useState("")
-	const [password, setPassword] = useState("")
-	const [confirmPassword, setConfirmPassword] = useState("")
+	const email = useRef("")
+	const password = useRef("")
+	const confirmPassword = useRef("")
 	const [failure, setFailure] = useState(Failure.None)
 	const navigate = useNavigate()
 
@@ -19,7 +19,7 @@ function SignUp() {
 		if (password !== confirmPassword) {
 			return setFailure(Failure.PasswordMismatch)
 		}
-		if (accountDB.signUp(email, password)) {
+		if (accountDB.signUp(email.current, password.current)) {
 			navigate("/")
 		} else {
 			setFailure(Failure.AlreadyExistingAccount)
@@ -51,7 +51,7 @@ function SignUp() {
 					type="email"
 					className="w-full rounded-lg border border-gray-200 bg-transparent p-4 outline-none"
 					placeholder="Enter your email address"
-					onInput={(e) => setEmail((e.target as HTMLInputElement).value)}
+					onInput={(e) => email.current = (e.target as HTMLInputElement).value}
 				/>
 			</div>
 			<div className="mb-5 flex flex-col items-start gap-y-3">
@@ -66,7 +66,7 @@ function SignUp() {
 					type="password"
 					className="w-full rounded-lg border border-gray-200 bg-transparent p-4 outline-none"
 					placeholder="Enter your password"
-					onInput={(e) => setPassword((e.target as HTMLInputElement).value)}
+					onInput={(e) => password.current = (e.target as HTMLInputElement).value}
 				/>
 			</div>
 			<div className="mb-5 flex flex-col items-start gap-y-3">
@@ -81,7 +81,7 @@ function SignUp() {
 					type="password"
 					className="w-full rounded-lg border border-gray-200 bg-transparent p-4 outline-none"
 					placeholder="Re-enter your password"
-					onInput={(e) => setConfirmPassword((e.target as HTMLInputElement).value)}
+					onInput={(e) => confirmPassword.current = (e.target as HTMLInputElement).value}
 				/>
 			</div>
 			{
