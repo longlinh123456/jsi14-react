@@ -1,13 +1,15 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import App from "./lesson_8/App"
+import App from "./App"
 import "./index.css"
 import {
 	createBrowserRouter,
 	RouterProvider,
 } from "react-router-dom"
-import SignIn from "./lesson_8/SignIn"
-import PageNotFound from "./lesson_8/PageNotFound"
+import SignIn from "./SignIn"
+import SignUp from "./SignUp"
+import PageNotFound from "./PageNotFound"
+import ResetPassword from "./ResetPassword"
 
 const router = createBrowserRouter([
 	{
@@ -19,9 +21,17 @@ const router = createBrowserRouter([
 		element: <SignIn />
 	},
 	{
+		path: "/signUp",
+		element: <SignUp />
+	},
+	{
 		path: "*",
 		element: <PageNotFound />
 	},
+	{
+		path: "/reset",
+		element: <ResetPassword />
+	}
 ])
 
   

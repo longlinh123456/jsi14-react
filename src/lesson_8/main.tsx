@@ -1,13 +1,13 @@
 import React from "react"
 import ReactDOM from "react-dom/client"
-import App from "./lesson_8/App"
-import "./index.css"
+import App from "./App"
+import "./lesson_8/index.css"
 import {
 	createBrowserRouter,
 	RouterProvider,
 } from "react-router-dom"
-import SignIn from "./lesson_8/SignIn"
-import PageNotFound from "./lesson_8/PageNotFound"
+import SignIn from "./SignIn"
+import PageNotFound from "./PageNotFound"
 
 const router = createBrowserRouter([
 	{

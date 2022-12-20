@@ -1,17 +1,19 @@
 import {useState, useEffect} from "react"
 import axios from "axios"
-import AnimeInfo from "./lesson_7/AnimeInfo"
+import AnimeInfo from "./AnimeInfo"
 import {useNavigate} from "react-router-dom"
-import accountDB from "./lesson_7/accountDB"
+import {signOut} from "firebase/auth"
+import {auth} from "../config/firebase"
 
 function App() {
 	const navigate = useNavigate()
 	const API_URL = "https://gogoanime.consumet.org/popular"
+	const [displayUser, setDisplayUser] = useState("")
 
 	const [filmData, setFilmDatas] = useState([])
 
-	function logOut() {
-		accountDB.logOut()
+	async function logOut() {
+		await signOut(auth)
 		navigate("/signIn")
 	}
 
@@ -23,21 +25,21 @@ function App() {
 
 	useEffect(
 		() => {
-			if (!accountDB.getCurrentAccount()) {
+			if (!auth.currentUser) {
 				navigate("/signIn")
 				return
 			}
-			
 			fetchAnime()
-			return () => {
-				setFilmDatas([])
-			}
+			setDisplayUser(auth.currentUser.email as string)
 		},
 		[]
 	)
 
 	return (
 		<div className="flex h-full w-full flex-1 items-center justify-center bg-[#6D67E4]">
+			<div className='absolute top-6 left-6'>
+				<h1 className="text-xl font-bold text-white">Welcome {displayUser}</h1>
+			</div>
 			<div>
 				<button 
 					onClick={logOut}
