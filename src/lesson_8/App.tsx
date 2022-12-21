@@ -30,7 +30,7 @@ function App() {
 				return
 			}
 			fetchAnime()
-			setDisplayUser(auth.currentUser.email as string)
+			setDisplayUser(auth.currentUser.email as string || auth.currentUser.displayName as string)
 		},
 		[]
 	)
