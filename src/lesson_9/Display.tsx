@@ -7,7 +7,7 @@ import Customer from "./Customer"
 const customerRef = collection(db, "customers")
 
 function Display() {
-	const [data, setData]: [data: CustomerData[], setData: React.Dispatch<React.SetStateAction<CustomerData[]>>] = useState([] as CustomerData[])
+	const [data, setData] = useState<CustomerData[]>([])
 	async function updateData() {
 		const snapshot = await getDocs(customerRef)
 		setData(snapshot.docs.map((doc) => doc.data()) as unknown as CustomerData[])
