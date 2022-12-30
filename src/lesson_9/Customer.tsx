@@ -1,5 +1,3 @@
-import React from "react"
-
 function Customer({name, phone, imageUrl, email}) {
 	return (
 		<div className="mx-auto inline-block h-1/2 w-[95%] rounded-lg bg-blue-600">

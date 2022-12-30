@@ -1,4 +1,3 @@
-import React from "react"
 import Append from "./Append"
 import Display from "./Display"
 

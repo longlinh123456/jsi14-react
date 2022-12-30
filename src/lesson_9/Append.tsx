@@ -1,5 +1,5 @@
 import {addDoc, collection} from "firebase/firestore"
-import React, {useRef} from "react"
+import {useRef} from "react"
 import {db} from "../config/firebase"
 
 const customerRef = collection(db, "customers")
